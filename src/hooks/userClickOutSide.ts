@@ -13,7 +13,6 @@ const useClickOutSide = (elementRef: Ref<null | HTMLElement>) => {
   onMounted(() => {
     document.addEventListener("click", handle);
   });
-
   onUnmounted(() => {
     document.removeEventListener("click", handle);
   });
