@@ -2,7 +2,7 @@
   <div class="container">
     <global-header :user="user"></global-header>
     <!--    <column-list :list="list"></column-list>-->
-    <form action="">
+    <validate-form @form-submit="test">
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
         <validate-input
@@ -20,7 +20,7 @@
           placeholder="请输入密码"
         ></validate-input>
       </div>
-    </form>
+    </validate-form>
   </div>
 </template>
 
@@ -30,6 +30,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ColumnList, { ColumnProps } from "@/components/ColumnList.vue";
 import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
 import ValidateInput, { RulesProp } from "@/components/ValidateInput.vue";
+import ValidateForm from "@/components/ValidateForm.vue";
 
 const currentUser: UserProps = {
   isLogin: true,
@@ -70,7 +71,8 @@ export default defineComponent({
   components: {
     // ColumnList,
     GlobalHeader,
-    ValidateInput
+    ValidateInput,
+    ValidateForm
   },
   setup() {
     const emailVal = ref("");
@@ -78,12 +80,15 @@ export default defineComponent({
       { type: "required", message: "电子邮箱地址不能为空" },
       { type: "email", message: "请输入正确的电子邮箱格式" }
     ];
-
+    const test = (result: boolean) => {
+      console.log(result);
+    };
     return {
       list: testData,
       user: currentUser,
       emailRules,
-      emailVal
+      emailVal,
+      test
     };
   }
 });
